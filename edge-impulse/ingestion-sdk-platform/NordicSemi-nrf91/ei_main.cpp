@@ -92,6 +92,10 @@ void ei_init(void)
     {
         ei_printf("ERR: Failed to initialize AT notifications, err %d\n", err);
     }
+
+    ei_printf("Connecting to network\n");
+    at_mqtt_connect();
+    ei_printf("Connected to network\n");
 }
 
 void ei_main(void)

@@ -7,7 +7,6 @@
 #include "ei_zephyr_flash_commands.h"
 #include "ei_main.h"
 
-
 int main(void)
 {
     /* This is needed so that output of printf 
@@ -28,9 +27,11 @@ int main(void)
     /* Initialize Zephyr flash device */
     create_flash_device();
 
-    /* Initialize Edge Impuls sensors and commands */
+    /* Initialize Edge Impulse sensors and commands */
     ei_init();
 
+    /* Connect to network */
+    
     while(1){
         ei_main();
     }
