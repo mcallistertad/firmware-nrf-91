@@ -1,0 +1,7 @@
+/* Application-specific trace reasons can be defined here.
+ * Please refer to https://docs.memfault.com/docs/embedded/trace-events for more details.
+ */
+MEMFAULT_TRACE_REASON_DEFINE(Switch2Toggled)
+MEMFAULT_TRACE_REASON_DEFINE(hard_fault)
+MEMFAULT_TRACE_REASON_DEFINE(critical_log)
+MEMFAULT_TRACE_REASON_DEFINE(flash_error)

@@ -12,6 +12,8 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project(example-standalone-inferencing-zephyr)
 
+zephyr_include_directories(config)
+
 include(utils/cmake/utils.cmake)
 # Needed for colorful output
 zephyr_compile_options(-fdiagnostics-color=always)
@@ -76,7 +78,6 @@ RECURSIVE_FIND_FILE(INGESTION_FILES "edge-impulse/ingestion-sdk-c/" "*.cpp")
 RECURSIVE_FIND_FILE(QCBOR_FILES "edge-impulse/QCBOR/src" "*.c")
 RECURSIVE_FIND_FILE(MBEDTLS_FILES "edge-impulse/mbedtls_hmac_sha256_sw/mbedtls/src" "*.c")
 RECURSIVE_FIND_FILE(PORTING_FILES "edge-impulse-sdk/porting/zephyr" "*.cpp")
-
 
 list(APPEND SOURCE_FILES ${S_FILES})
 list(APPEND SOURCE_FILES ${C_FILES})

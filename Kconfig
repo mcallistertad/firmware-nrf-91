@@ -7,7 +7,7 @@
 menu "MQTT Edge Impulse Demo"
 config MQTT_PUB_TOPIC_PREFIX
 	string "MQTT publish topic"
-	default "ei/safecility/alarm"
+	default "ei/demo"
 
 config MQTT_BROKER_HOSTNAME
 	string "MQTT broker hostname"

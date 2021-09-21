@@ -41,19 +41,19 @@
 #define EI_CLASSIFIER_DATATYPE_FLOAT32           1
 #define EI_CLASSIFIER_DATATYPE_INT8              9
 
-#define EI_CLASSIFIER_PROJECT_ID                 48208
+#define EI_CLASSIFIER_PROJECT_ID                 48679
 #define EI_CLASSIFIER_PROJECT_OWNER              "Tad McAllister"
-#define EI_CLASSIFIER_PROJECT_NAME               "alarm-detection v4"
-#define EI_CLASSIFIER_PROJECT_DEPLOY_VERSION     23
-#define EI_CLASSIFIER_NN_INPUT_FRAME_SIZE        1152
-#define EI_CLASSIFIER_RAW_SAMPLE_COUNT           80000
+#define EI_CLASSIFIER_PROJECT_NAME               "alarm-detect"
+#define EI_CLASSIFIER_PROJECT_DEPLOY_VERSION     1
+#define EI_CLASSIFIER_NN_INPUT_FRAME_SIZE        845
+#define EI_CLASSIFIER_RAW_SAMPLE_COUNT           16000
 #define EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME      1
 #define EI_CLASSIFIER_DSP_INPUT_FRAME_SIZE       (EI_CLASSIFIER_RAW_SAMPLE_COUNT * EI_CLASSIFIER_RAW_SAMPLES_PER_FRAME)
 #define EI_CLASSIFIER_INPUT_WIDTH                0
 #define EI_CLASSIFIER_INPUT_HEIGHT               0
 #define EI_CLASSIFIER_INPUT_FRAMES               0
 #define EI_CLASSIFIER_INTERVAL_MS                0.0625
-#define EI_CLASSIFIER_LABEL_COUNT                4
+#define EI_CLASSIFIER_LABEL_COUNT                2
 #define EI_CLASSIFIER_HAS_ANOMALY                0
 #define EI_CLASSIFIER_FREQUENCY                  16000
 #define EI_CLASSIFIER_USE_QUANTIZED_DSP_BLOCK    0
@@ -62,7 +62,7 @@
 #define EI_CLASSIFIER_OBJECT_DETECTION           0
 
 
-#define EI_CLASSIFIER_TFLITE_ARENA_SIZE          9760
+#define EI_CLASSIFIER_TFLITE_ARENA_SIZE          10144
 #define EI_CLASSIFIER_TFLITE_INPUT_DATATYPE      EI_CLASSIFIER_DATATYPE_INT8
 #define EI_CLASSIFIER_TFLITE_INPUT_QUANTIZED     1
 #define EI_CLASSIFIER_TFLITE_INPUT_SCALE         0.003921568859368563
@@ -91,7 +91,7 @@
 #endif
 #endif // EI_CLASSIFIER_INFERENCING_ENGINE == EI_CLASSIFIER_TFLITE && EI_CLASSIFIER_USE_FULL_TFLITE == 1
 
-const char* ei_classifier_inferencing_categories[] = { "background", "conversation", "fire-alarm", "traffic" };
+const char* ei_classifier_inferencing_categories[] = { "alarm", "noise" };
 
 typedef struct {
     uint16_t implementation_version;
@@ -181,19 +181,16 @@ typedef struct {
     float pre_cof;
 } ei_dsp_config_audio_syntiant_t;
 
-uint8_t ei_dsp_config_13_axes[] = { 0 };
-const uint32_t ei_dsp_config_13_axes_size = 1;
-ei_dsp_config_mfe_t ei_dsp_config_13 = {
-    2,
+uint8_t ei_dsp_config_14_axes[] = { 0 };
+const uint32_t ei_dsp_config_14_axes_size = 1;
+ei_dsp_config_spectrogram_t ei_dsp_config_14 = {
+    3,
     1,
-    0.05000f,
-    0.14000f,
-    32,
-    256,
-    300,
-    0,
-    101,
-    -52
+    0.07500f,
+    0.07500f,
+    128,
+    -32,
+    true
 };
 
 #endif // _EI_CLASSIFIER_MODEL_METADATA_H_

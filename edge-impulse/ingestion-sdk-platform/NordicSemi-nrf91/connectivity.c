@@ -114,8 +114,8 @@ void mqtt_evt_handler(struct mqtt_client *const c,
 
         if (err >= 0)
         {
-            // data_print("Received: ", payload_buf,
-            //            p->message.payload.len);
+            // printk("Received: ", payload_buf,
+                        // p->message.payload.len);
             /* Echo back received data */
             data_publish(&client, MQTT_QOS_1_AT_LEAST_ONCE,
                          payload_buf, p->message.payload.len);
