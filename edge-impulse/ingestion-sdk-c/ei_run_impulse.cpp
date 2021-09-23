@@ -147,6 +147,10 @@ void run_nn(bool debug)
 {
     extern signal_t ei_microphone_get_signal();
 
+    bool stop_inferencing = false;
+    float max;
+    size_t max_ix;
+
     // summary of inferencing settings (from model_metadata.h)
     ei_printf("Inferencing settings:\n");
     ei_printf("\tInterval: ");
@@ -164,7 +168,7 @@ void run_nn(bool debug)
 
     ei_printf("Starting inferencing, press 'b' to break\n");
 
-    while (1) {
+    while (stop_inferencing == false) {
         ei_printf("Starting inferencing in 2 seconds...\n");
 
         // instead of wait_ms, we'll wait on the signal, this allows threads to cancel us...
@@ -202,11 +206,19 @@ void run_nn(bool debug)
         // print the predictions
         ei_printf("Predictions (DSP: %d ms., Classification: %d ms., Anomaly: %d ms.): \n",
             result.timing.dsp, result.timing.classification, result.timing.anomaly);
-        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {
+        for (size_t ix = 0; ix < EI_CLASSIFIER_LABEL_COUNT; ix++) {            
             ei_printf("    %s: \t", result.classification[ix].label);
             ei_printf_float(result.classification[ix].value);
             ei_printf("\r\n");
+            if (result.classification[ix].value > max) {
+                max = result.classification[ix].value;
+                max_ix = ix;
+            }
         }
+        /* Only for MQTT demo purposes */
+        ei_mqtt_publish(result.classification[max_ix].label);
+        max = 0.0;
+
 #if EI_CLASSIFIER_HAS_ANOMALY == 1
         ei_printf("    anomaly score: ");
         ei_printf_float(result.anomaly);
@@ -226,6 +238,7 @@ void run_nn_continuous(bool debug)
 {
     bool stop_inferencing = false;
     int print_results = -(EI_CLASSIFIER_SLICES_PER_MODEL_WINDOW);
+
     // summary of inferencing settings (from model_metadata.h)
     ei_printf("Inferencing settings:\n");
     ei_printf("\tInterval: ");
